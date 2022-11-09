@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+
+  proxy:
+    image: nginx:alpine
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - /home/muhammad/Desktop/Nginx/NginxReverseProxy/configs/nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - mynet
+
+  app1:
+    image: nodeapp
+    restart: always
+    networks:
+      - mynet
+  site:
+    image: nginx:alpine
+    volumes:
+      - /home/muhammad/Desktop/Nginx/NginxReverseProxy/site:/usr/share/nginx/html
+    networks:
+      - mynet
+
+networks:
+  mynet:
